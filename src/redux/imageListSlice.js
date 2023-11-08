@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useSelector, useDispatch } from 'react-redux';
 
 const imageListSlice = createSlice({
     initialState: [],
@@ -9,13 +8,13 @@ const imageListSlice = createSlice({
             state.push(action.payload);
         },
         updateImageList: (state, action) => {
-            const selectedList = useSelector(state => state.counter);
+            
             state.forEach((elem, index) => {
-                if(action.payload.includes(elem)){
-                    state.splice(index, 1);
+                if(action.payload == elem){
+                    let del = state.splice(index, 1);
+                    console.log(' sataae',del);
                 }
             });
-            console.log(' sataae',state);
             
         },
     }

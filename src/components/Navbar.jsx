@@ -17,7 +17,8 @@ const nav = () => {
             deleteObject(imageRef)
             .then(() => {
                 alert('deleted successfully.');            
-                dispatch(alterState());
+                // dispatch(alterState());
+                dispatch(updateImageList(image));
             })
         });
     };

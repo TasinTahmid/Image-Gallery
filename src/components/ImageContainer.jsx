@@ -15,6 +15,7 @@ const ImageContainer = () => {
     const dispatch = useDispatch();
 
     const imageListRef = ref(storage, "images/");
+    let tempList = [];
 
     useEffect(()=>{
         let isCanceled = false;
@@ -27,6 +28,7 @@ const ImageContainer = () => {
                     res.items.forEach(item => {
                         getDownloadURL(item)
                             .then(url => {
+                                tempList.push(url);
                                 dispatch(getImageList(url))
                             });
                     }); 
@@ -41,8 +43,8 @@ const ImageContainer = () => {
             grid grid-cols-4 gap-4"
         >
             {
-                imageList.map((url, index) =>{
-                    return <ImageCard url={url} key={index} />
+                imageList.map((url) =>{
+                    return <ImageCard url={url} key={url} />
                 })
             }
 
