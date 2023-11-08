@@ -1,8 +1,8 @@
 import { storage } from "../firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { alterState } from "../redux/needChangeSlice.js";
-import { updateImageList, getImageList } from "../redux/imageListSlice.js";
-import { addToList, removeFromList, resetList } from "../redux/checkedBoxSlice.js";
+import { updateImageList } from "../redux/imageListSlice.js";
+import { resetList } from "../redux/checkedBoxSlice.js";
 import { ref, deleteObject } from "firebase/storage";
 
 const nav = () => {
@@ -16,9 +16,9 @@ const nav = () => {
             
             deleteObject(imageRef)
             .then(() => {
-                alert('deleted successfully.');            
                 // dispatch(alterState());
                 dispatch(updateImageList(image));
+                dispatch(resetList());
             })
         });
     };

@@ -30,7 +30,7 @@ const ImageCard = ({url}) => {
 
     return (
         <div 
-            className="border-2 rounded-lg  relative"
+            className="border-2 rounded-lg  relative cursor-pointer"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >

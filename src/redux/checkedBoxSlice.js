@@ -16,7 +16,7 @@ const checkedBoxListSlice = createSlice({
         },
         resetList: (state) => {
             state = [];
-            console.log(state);
+            return state;
         }
     }
 });

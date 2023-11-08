@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateImageList, getImageList } from "../redux/imageListSlice";
 import { resetList } from "../redux/checkedBoxSlice";
-import { v4 } from "uuid";
 
 
 const ImageContainer = () => {
@@ -15,7 +14,6 @@ const ImageContainer = () => {
     const dispatch = useDispatch();
 
     const imageListRef = ref(storage, "images/");
-    let tempList = [];
 
     useEffect(()=>{
         let isCanceled = false;
@@ -28,14 +26,13 @@ const ImageContainer = () => {
                     res.items.forEach(item => {
                         getDownloadURL(item)
                             .then(url => {
-                                tempList.push(url);
                                 dispatch(getImageList(url))
                             });
                     }); 
                 }
             });
         return ()=>{isCanceled = true};
-    }, [needChange]);
+    }, []);
 
     return (
         <div
