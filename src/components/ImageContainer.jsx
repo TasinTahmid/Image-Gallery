@@ -37,24 +37,21 @@ const ImageContainer = () => {
 
     const handleDragEnd = (e, index) =>{
         let  _items = [...imageList];
-        console.log("drag",dragItemIndex)
-        console.log("dragend",dragEndItemIndex)
 
-        if(dragEndItemIndex < dragItemIndex){
+        if(dragEndItemIndex.current < dragItemIndex.current){
             let temp = dragEndItemIndex;
             dragEndItemIndex = dragItemIndex;
             dragItemIndex = temp;
         }
-
         let draggedItem = _items.splice(dragItemIndex.current,1)[0];
         _items.splice(dragEndItemIndex.current, 0, draggedItem);
+        draggedItem = _items.splice(dragEndItemIndex.current-1,1)[0];
+        _items.splice(dragItemIndex.current, 0, draggedItem);
 
         dragItemIndex.current = null;
         dragEndItemIndex.current = null;
 
         dispatch(changeImageListFully(_items) );
-
-        // e.preventDefault();
     }
 
     return (
