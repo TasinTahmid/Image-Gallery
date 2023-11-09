@@ -2,13 +2,16 @@ import ImageCard from "./ImageCard";
 import Upload from "./Upload";
 import { storage } from "../firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { updateImageList, getImageList } from "../redux/imageListSlice";
+import { changeImageListFully, getImageList } from "../redux/imageListSlice";
 import { resetList } from "../redux/checkedBoxSlice";
 
 
 const ImageContainer = () => {
+    let  dragItemIndex = useRef(null);
+    let  dragEndItemIndex = useRef(null);
+
     const imageList = useSelector(state => state.imageList);
     const needChange = useSelector(state => state.needChange);
     const dispatch = useDispatch();
@@ -17,12 +20,10 @@ const ImageContainer = () => {
 
     useEffect(()=>{
         let isCanceled = false;
-        console.log("in");
         dispatch(resetList());
         listAll(imageListRef)
             .then(res => {
                 if(!isCanceled){
-                    console.log('in2');
                     res.items.forEach(item => {
                         getDownloadURL(item)
                             .then(url => {
@@ -34,14 +35,43 @@ const ImageContainer = () => {
         return ()=>{isCanceled = true};
     }, []);
 
+    const handleDragEnd = (e, index) =>{
+        let  _items = [...imageList];
+        console.log("drag",dragItemIndex)
+        console.log("dragend",dragEndItemIndex)
+
+        if(dragEndItemIndex < dragItemIndex){
+            let temp = dragEndItemIndex;
+            dragEndItemIndex = dragItemIndex;
+            dragItemIndex = temp;
+        }
+
+        let draggedItem = _items.splice(dragItemIndex.current,1)[0];
+        _items.splice(dragEndItemIndex.current, 0, draggedItem);
+
+        dragItemIndex.current = null;
+        dragEndItemIndex.current = null;
+
+        dispatch(changeImageListFully(_items) );
+
+        // e.preventDefault();
+    }
+
     return (
-        <div
+        <div 
             className="w-full bg-white shadow-lg p-5 w-3/4 rounded-b-lg
             grid grid-cols-4 gap-4"
         >
             {
-                imageList.map((url) =>{
-                    return <ImageCard url={url} key={url} />
+                imageList.map((url, index) =>{
+                    return (<li key={url} className="list-none border-0"
+                    draggable
+                    onDragStart={(e)=>dragItemIndex.current = index}
+                    onDragEnter={(e)=>dragEndItemIndex.current = index}
+                    onDragEnd={(e)=>handleDragEnd(e,index)}
+                    > 
+                        <ImageCard url={url} key={url} />
+                    </li>)
                 })
             }
 

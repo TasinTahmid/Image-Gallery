@@ -8,17 +8,17 @@ const imageListSlice = createSlice({
             state.push(action.payload);
         },
         updateImageList: (state, action) => {
-            
             state.forEach((elem, index) => {
                 if(action.payload == elem){
                     let del = state.splice(index, 1);
-                    console.log(' sataae',del);
                 }
             });
-            
         },
+        changeImageListFully: (state, action) => {
+            return action.payload;
+        }
     }
 });
 
-export const { updateImageList, getImageList } = imageListSlice.actions;
+export const { updateImageList, getImageList, changeImageListFully} = imageListSlice.actions;
 export default imageListSlice.reducer;
