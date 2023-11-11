@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addToList, removeFromList } from "../redux/checkedBoxSlice.js";
 
 
-const ImageCard = ({url}) => {
+const ImageCard = ({url, index}) => {
     const list = useSelector(state => state.counter);
     const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ const ImageCard = ({url}) => {
 
     return (
         <div 
-            className="border-2 rounded-lg  relative cursor-pointer"
+            className={`grid border-2 rounded-lg  relative cursor-pointer `}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >

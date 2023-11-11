@@ -23,6 +23,10 @@ const nav = () => {
         });
     };
 
+    const unselectAllImage = () => { 
+        // dispatch(resetList())
+    };
+
     return (
         <div className="w-full ">
             {selectedImageList.length ? (
@@ -35,7 +39,7 @@ const nav = () => {
                                 type="checkbox"
                                 checked
                                 value="true"
-                                onChange={()=>{}}
+                                onChange={unselectAllImage}
                                 className="  w-4 h-4 mt-1"
                             />
                             <p>{`${selectedImageList.length} File Selected`}</p>

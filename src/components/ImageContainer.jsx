@@ -56,23 +56,23 @@ const ImageContainer = () => {
 
     return (
         <div 
-            className="w-full bg-white shadow-lg p-5 w-3/4 rounded-b-lg
+            className="w-full h-full bg-white shadow-lg p-5 w-3/4 rounded-b-lg
             grid grid-cols-4 gap-4"
         >
             {
                 imageList.map((url, index) =>{
-                    return (<li key={url} className="list-none border-0"
+                    return (<li key={url} className={`list-none border-0 ${(index==0) ? "col-span-2 row-span-2": ""}`}
                     draggable
                     onDragStart={(e)=>dragItemIndex.current = index}
                     onDragEnter={(e)=>dragEndItemIndex.current = index}
                     onDragEnd={(e)=>handleDragEnd(e,index)}
                     > 
-                        <ImageCard url={url} key={url} />
+                        <ImageCard url={url} key={url} index={index} />
                     </li>)
                 })
             }
 
-            <Upload />
+            <Upload length={imageList.length}/>
         </div>
     );
 };
