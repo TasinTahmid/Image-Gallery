@@ -57,7 +57,7 @@ const ImageContainer = () => {
     return (
         <div 
             className="w-full h-full bg-white shadow-lg p-5 w-3/4 rounded-b-lg
-            grid grid-cols-4 gap-4"
+            grid grid-cols-1 gap-4 min-[450px]:grid-cols-2 min-[640px]:grid-cols-3 sm:grid-cols-3 min-[850px]:grid-cols-4 min-[1100px]:grid-cols-5 xl:grid-cols-6 min-[1640px]:grid-cols-7"
         >
             {
                 imageList.map((url, index) =>{

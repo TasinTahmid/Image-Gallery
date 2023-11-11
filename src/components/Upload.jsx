@@ -23,7 +23,8 @@ const Upload = ({length}) => {
     }
 
     return (
-        <div className={`flex items-center justify-center h-full w-full  ${(length==0) ? "col-span-2 row-span-2": ""}`}>
+        <div className={`flex items-center justify-center col-span-2 min-[450px]:col-span-1 
+        min-[450px]:row-span-1 ${(length==0) ? "col-span-2 row-span-2": ""}`}>
             <label
                 htmlFor="dropzone-file"
                 className="flex flex-col items-center justify-center w-full h-full  border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
