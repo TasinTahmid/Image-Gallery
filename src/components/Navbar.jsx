@@ -1,13 +1,20 @@
 import { storage } from "../firebase";
+import { useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { alterState } from "../redux/needChangeSlice.js";
 import { updateImageList } from "../redux/imageListSlice.js";
 import { resetList } from "../redux/checkedBoxSlice.js";
+import { resetRefList } from "../redux/refSlice.js";
 import { ref, deleteObject } from "firebase/storage";
+import { RefContext } from "../App.jsx";
 
 const nav = () => {
     const selectedImageList = useSelector((state) => state.counter);
+
+    const refList = useSelector(state => state.refList);
     const dispatch = useDispatch();
+    const ref = useContext(RefContext);
+
 
     const deleteImage = () => { 
     //   dispatch(updateImageList(dsletcedImageList));
@@ -24,7 +31,12 @@ const nav = () => {
     };
 
     const unselectAllImage = () => { 
-        // dispatch(resetList())
+        ref.current.map(elem => {
+            elem && (elem.checked = false);
+            elem.value ? elem.value = false : elem.value = true;
+        });
+        ref.current = [];
+        dispatch(resetList());
     };
 
     return (

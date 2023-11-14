@@ -1,20 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { addToList, removeFromList } from "../redux/checkedBoxSlice.js";
+import { RefContext } from "../App.jsx";
+import { addRef } from "../redux/refSlice.js";
 
 
 const ImageCard = ({url, index}) => {
     const list = useSelector(state => state.counter);
+    const ref = useContext(RefContext);
+    const needChange = useSelector(state => state.needChange);
+
+
     const dispatch = useDispatch();
 
     const [isHovering, setIsHovering] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
 
     const handleCheckboxChange = (e) => {
+        // ref.current.push(e.target);
+        // console.log(ref.current);
+        // dispatch(addRef((e.target)));
         if(!isChecked){
             setIsChecked(true);
             dispatch(addToList(url));
-
         }
         else{
             setIsChecked(false);      
@@ -28,6 +36,13 @@ const ImageCard = ({url, index}) => {
         setIsHovering(false);
     };
 
+    // const addRef = (elem) => {
+    //     console.log("in");
+    //     console.log(elem);
+    //     ref.current.push(elem);
+    //     // dispatch(addRef(elem));
+    // }
+
     return (
         <div 
             className={`grid border-2 rounded-lg  relative cursor-pointer `}
@@ -40,6 +55,7 @@ const ImageCard = ({url, index}) => {
         `}
             >
                 <input 
+                    ref={(elem) => {elem&&elem.checked&&ref.current.push(elem)}}
                     type="checkbox"
                     value={isChecked}
                     onChange={handleCheckboxChange}

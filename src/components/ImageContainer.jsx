@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { changeImageListFully, getImageList } from "../redux/imageListSlice";
 import { resetList } from "../redux/checkedBoxSlice";
 
-
 const ImageContainer = () => {
     let  dragItemIndex = useRef(null);
     let  dragEndItemIndex = useRef(null);

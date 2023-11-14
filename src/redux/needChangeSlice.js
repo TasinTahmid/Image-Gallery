@@ -7,8 +7,10 @@ const needChangeSlice = createSlice({
         alterState:(state) => {
             return state = state?false:true;
         },
+        makeFalse: state => false,
+        makeTrue: state => true
     }
 });
 
-export const { alterState } = needChangeSlice.actions;
+export const { alterState, makeFalse, makeTrue } = needChangeSlice.actions;
 export default needChangeSlice.reducer;
